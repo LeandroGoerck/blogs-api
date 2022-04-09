@@ -1,9 +1,8 @@
 const express = require('express');
 // startingsdsads
 const app = express();
-const { PORT } = process.env.PORT;
 
-app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
+app.listen(process.env.PORT, () => console.log(`ouvindo porta ${process.env.PORT}!`));
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
