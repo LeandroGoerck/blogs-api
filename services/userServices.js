@@ -1,4 +1,5 @@
 const { User } = require('../models');
+const ERR = require('../errors/errorMessages');
 
 const getAllUsers = async () => {
   const userData = await User.findAll();
@@ -8,10 +9,13 @@ const getAllUsers = async () => {
     userData,
   };
 };
-const createNewUser = async () => {
-  const createdUser = await { nothing: 'here' };
+
+const createNewUser = async (userData) => {
+  const { displayName, email,password, image } = userData;
+  if (displayName.length < 8) throw ERR.DISPLAY_NAME_LENGTH_MUST_BE_AT_LEAST_8;
+  const createdUser = await User.create(userData);
   return {
-    status: 200,
+    status: 201,
     createdUser,
   };
 };
