@@ -38,7 +38,17 @@ const createNewUser = async (userData) => {
   };
 };
 
+const login = async (loginData) => {
+  console.log('login service', loginData);
+  const token = { token: 'tokenHash' };
+  return {
+    status: 200,
+    token,
+  };
+};
+
 module.exports = {
   getAllUsers,
   createNewUser,
+  login,
 };

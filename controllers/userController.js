@@ -10,7 +10,13 @@ const createNewUser = async (req, res) => {
   return res.status(status).json(createdUser);
 };
 
+const login = async (req, res) => {
+  const { status, token } = await userServices.login(req.body);
+  return res.status(status).json(token);
+};
+
 module.exports = {
   getAllUsers,
   createNewUser,
+  login,
 };
