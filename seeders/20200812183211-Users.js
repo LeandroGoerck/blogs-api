@@ -1,4 +1,4 @@
-umodule.exports = {
+module.exports = {
   up: async (queryInterface, _Sequelize) => {
     await queryInterface.bulkInsert('Users',
       [{
