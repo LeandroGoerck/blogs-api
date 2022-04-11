@@ -10,16 +10,11 @@ app.use(express.json());
 
 app.use('/user', userRoutes);
 
-// app.get('/user', (req, res) => {
-//   User.findAll()
-//   .then((dados) => {
-//     res.status(200).json(dados);
-//   })
-//   .catch((error) => {
-//     console.log(error.message);
-//     res.status(500).json({ message: 'Algo deu errado' });
-//   });
-// });
+app.use((err, _req, res, _next) => {
+  const { status, message } = err;
+  console.log(message);
+  res.status(status).json({ message });
+});
 
 app.listen(process.env.PORT, () => console.log(`ouvindo porta ${process.env.PORT}!`));
 
