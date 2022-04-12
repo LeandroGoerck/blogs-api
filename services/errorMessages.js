@@ -58,6 +58,11 @@ const USER_DOES_NOT_EXIST = {
   status: 404,
 };
 
+const NAME_IS_REQUIRED = {
+  message: '"name" is required',
+  status: 400,
+};
+
 module.exports = {
   DISPLAY_NAME_LENGTH_MUST_BE_AT_LEAST_8,
   EMAIL_MUST_BE_VALID,
@@ -71,4 +76,5 @@ module.exports = {
   TOKEN_NOT_FOUND,
   EXPIRED_OR_INVALID_TOKEN,
   USER_DOES_NOT_EXIST,
+  NAME_IS_REQUIRED,
 };
