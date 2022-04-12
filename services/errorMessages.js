@@ -43,6 +43,16 @@ const INVALID_FIELDS = {
   status: 400,
 };
 
+const TOKEN_NOT_FOUND = {
+  message: 'Token not found',
+  status: 401,
+};
+
+const EXPIRED_OR_INVALID_TOKEN = {
+  message: 'Expired or invalid token',
+  status: 401,
+};
+
 module.exports = {
   DISPLAY_NAME_LENGTH_MUST_BE_AT_LEAST_8,
   EMAIL_MUST_BE_VALID,
@@ -53,4 +63,6 @@ module.exports = {
   PASSWORD_IS_NOT_ALLOWED_TO_BE_EMPTY,
   USER_ALREADY_REGISTERED,
   INVALID_FIELDS,
+  TOKEN_NOT_FOUND,
+  EXPIRED_OR_INVALID_TOKEN,
 };

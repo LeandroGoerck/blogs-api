@@ -1,8 +1,14 @@
 const userServices = require('../services/userServices');
+const authServices = require('../services/auth');
 
-const getAllUsers = async (_req, res) => {
-  const { status, userData } = await userServices.getAllUsers();
-  return res.status(status).json(userData);
+const getAllUsers = async (req, res) => {
+  const { authorization } = req.headers;
+  console.log('\nauthorization: ', authorization);
+  const isLogged = await authServices.checkJWT(authorization);
+  if (isLogged) {
+    const { status, userData } = await userServices.getAllUsers();
+    res.status(status).json(userData);
+  }
 };
 
 const createNewUser = async (req, res) => {

@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const ERR = require('./errorMessages');
+const { User } = require('../models');
 
 const { JWT_SECRET } = process.env;
 
@@ -21,7 +22,19 @@ const checkLoginFields = (email, password) => {
   if (!password) throw ERR.PASSWORD_IS_REQUIRED;
 };
 
+const checkJWT = async (authorization) => {
+  if (!authorization) throw ERR.TOKEN_NOT_FOUND;
+    console.log('authorization', authorization, 'JWT_SECRET', JWT_SECRET);
+    const verifyToken = jwt.verify(authorization, JWT_SECRET);
+    console.log('\nverifyToken: ', verifyToken);
+  // const foundUserEmail = await User.findOne({ where: { email: verifyToken.email } });
+  // if (!foundUserEmail) return false;
+  // console.log('valid');
+  return true;
+};
+
 module.exports = {
   generateToken,
   checkLoginFields,
+  checkJWT,
 };
