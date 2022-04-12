@@ -63,6 +63,26 @@ const NAME_IS_REQUIRED = {
   status: 400,
 };
 
+const TITLE_IS_REQUIRED = {
+  message: '"title" is required',
+  status: 400,
+};
+
+const CONTENT_IS_REQUIRED = {
+  message: '"content" is required',
+  status: 400,
+};
+
+const CATEGORY_IDS_IS_REQUIRED = {
+  message: '"categoryIds" is required',
+  status: 400,
+};
+
+const CATEGORY_IDS_NOT_FOUND = {
+  message: '"categoryIds" not found',
+  status: 400,
+};
+
 module.exports = {
   DISPLAY_NAME_LENGTH_MUST_BE_AT_LEAST_8,
   EMAIL_MUST_BE_VALID,
@@ -77,4 +97,8 @@ module.exports = {
   EXPIRED_OR_INVALID_TOKEN,
   USER_DOES_NOT_EXIST,
   NAME_IS_REQUIRED,
+  TITLE_IS_REQUIRED,
+  CONTENT_IS_REQUIRED,
+  CATEGORY_IDS_IS_REQUIRED,
+  CATEGORY_IDS_NOT_FOUND,
 };

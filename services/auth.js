@@ -23,9 +23,8 @@ const checkLoginFields = (email, password) => {
 
 const checkJWT = async (authorization) => {
   if (!authorization) throw ERR.TOKEN_NOT_FOUND;
-    console.log('authorization', authorization, 'JWT_SECRET', JWT_SECRET);
     const verifyToken = jwt.verify(authorization, JWT_SECRET);
-    console.log('\nverifyToken: ', verifyToken);
+  if (!verifyToken) return false;
   return true;
 };
 
