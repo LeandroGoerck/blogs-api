@@ -53,6 +53,11 @@ const EXPIRED_OR_INVALID_TOKEN = {
   status: 401,
 };
 
+const USER_DOES_NOT_EXIST = {
+  message: 'User does not exist',
+  status: 404,
+};
+
 module.exports = {
   DISPLAY_NAME_LENGTH_MUST_BE_AT_LEAST_8,
   EMAIL_MUST_BE_VALID,
@@ -65,4 +70,5 @@ module.exports = {
   INVALID_FIELDS,
   TOKEN_NOT_FOUND,
   EXPIRED_OR_INVALID_TOKEN,
+  USER_DOES_NOT_EXIST,
 };

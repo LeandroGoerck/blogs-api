@@ -10,6 +10,15 @@ const getAllUsers = async () => {
   };
 };
 
+const getById = async (id) => {
+  const foundUser = await User.findByPk(id);
+  if (!foundUser) throw ERR.USER_DOES_NOT_EXIST;
+  return {
+    status: 200,
+    foundUser,
+  };
+};
+
 const checkEmail = (email) => {
   console.log('checking email', email);
   if (!email) throw ERR.EMAIL_IS_REQUIRED;
@@ -54,6 +63,7 @@ const login = async (data) => {
 
 module.exports = {
   getAllUsers,
+  getById,
   createNewUser,
   login,
 };
