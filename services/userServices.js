@@ -1,9 +1,9 @@
 const { User } = require('../models');
-const ERR = require('../errors/errorMessages');
+const ERR = require('./errorMessages');
+const auth = require('./auth');
 
 const getAllUsers = async () => {
   const userData = await User.findAll();
-  // const userData = { user: 'data' };
   return {
     status: 200,
     userData,
@@ -11,11 +11,13 @@ const getAllUsers = async () => {
 };
 
 const checkEmail = (email) => {
+  console.log('checking email', email);
   if (!email) throw ERR.EMAIL_IS_REQUIRED;
   if (!/\S+@\S+\.\S+/.test(email)) throw ERR.EMAIL_MUST_BE_VALID;
 };
 
 const checkPassword = (password) => {
+  console.log('checking password', password);
   if (!password) throw ERR.PASSWORD_IS_REQUIRED;
   if (password.length < 6) throw ERR.PASSWORD_LENGTH_MUST_BE_6_CHARACTERS_LONG;
 };
@@ -38,9 +40,12 @@ const createNewUser = async (userData) => {
   };
 };
 
-const login = async (loginData) => {
-  console.log('login service', loginData);
-  const token = { token: 'tokenHash' };
+const login = async (data) => {
+  auth.checkLoginFields(data.email, data.password);
+  const { email } = data;
+  const userEmailFound = await User.findOne({ where: { email } });
+  if (!userEmailFound) throw ERR.INVALID_FIELDS;
+  const token = auth.generateToken();
   return {
     status: 200,
     token,

@@ -3,13 +3,13 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 3000;
 const userRoutes = require('./routes/userRoutes');
-const userController = require('./controllers/userController');
+const loginRoutes = require('./routes/loginRoutes');
 
 const app = express();
 app.use(express.json());
 
 app.use('/user', userRoutes);
-app.use('/login', userController.login);
+app.use('/login', loginRoutes);
 
 app.use((err, _req, res, _next) => {
   const { status, message } = err;
