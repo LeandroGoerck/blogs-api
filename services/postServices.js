@@ -4,8 +4,8 @@ const ERR = require('./errorMessages');
 const checkIfCategoryIdsExistOnDB = async (idsList) => {
   const categories = await Category.findAll();
   const idListFromDB = categories.map((cat) => cat.dataValues.id);
-  idsList.forEach((element) => {
-    const includes = idListFromDB.includes(element);
+  idsList.forEach((id) => {
+    const includes = idListFromDB.includes(id);
     if (!includes) throw ERR.CATEGORY_IDS_NOT_FOUND;
     });
 };
@@ -25,18 +25,12 @@ const getAll = async () => {
   console.log('its passing here');
   const categoriesData = await BlogPost.findAll({
     include: [
-      { model: User, as: 'User' },
-      // { model: Category, as: 'Categories', through: { attributes: [] } },
-      { model: Category },
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   }); 
   return categoriesData;
 };
-
-// const getAll = async () => {
-//   const categoriesData = await BlogPost.findAll();
-//   return categoriesData;
-// };
 
 module.exports = {
   createNewPost,

@@ -11,9 +11,8 @@ const createNewPost = async (req, res) => {
 };
 
 const getAll = async (req, res) => {
-  // const { authorization } = req.headers;
-  // const isLogged = await authServices.checkJWT(authorization);
-  const isLogged = true;
+  const { authorization } = req.headers;
+  const isLogged = await authServices.checkJWT(authorization);
   if (isLogged) {
     const postsData = await postServices.getAll();
     res.status(200).json(postsData);
