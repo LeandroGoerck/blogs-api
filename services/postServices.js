@@ -2,10 +2,12 @@ const { BlogPost, User, Category } = require('../models');
 const ERR = require('./errorMessages');
 
 const checkIfCategoryIdsExistOnDB = async (idsList) => {
-  const foundCategory = await Promise
-    .all(idsList.map((categoryId) => (Category.findByPk(categoryId))));
-  const foundNull = foundCategory.some((category) => category === null);
-  if (foundNull) throw ERR.CATEGORY_IDS_NOT_FOUND;
+  const categories = await Category.findAll();
+  const idListFromDB = categories.map((cat) => cat.dataValues.id);
+  idsList.forEach((element) => {
+    const includes = idListFromDB.includes(element);
+    if (!includes) throw ERR.CATEGORY_IDS_NOT_FOUND;
+    });
 };
 
 const createNewPost = async (data) => {
