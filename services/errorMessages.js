@@ -83,6 +83,11 @@ const CATEGORY_IDS_NOT_FOUND = {
   status: 400,
 };
 
+const POST_DOES_NOT_EXIST = {
+  message: 'Post does not exist',
+  status: 404,
+};
+
 module.exports = {
   DISPLAY_NAME_LENGTH_MUST_BE_AT_LEAST_8,
   EMAIL_MUST_BE_VALID,
@@ -101,4 +106,5 @@ module.exports = {
   CONTENT_IS_REQUIRED,
   CATEGORY_IDS_IS_REQUIRED,
   CATEGORY_IDS_NOT_FOUND,
+  POST_DOES_NOT_EXIST,
 };

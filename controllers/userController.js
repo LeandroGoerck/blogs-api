@@ -6,8 +6,8 @@ const getAllUsers = async (req, res) => {
   console.log('\nauthorization: ', authorization);
   const isLogged = await authServices.checkJWT(authorization);
   if (isLogged) {
-    const { status, userData } = await userServices.getAllUsers();
-    res.status(status).json(userData);
+    const userData = await userServices.getAllUsers();
+    res.status(200).json(userData);
   }
 };
 
@@ -18,19 +18,19 @@ const getById = async (req, res) => {
   if (isLogged) {
     const { id } = req.params;
     console.log('id: ', id);
-    const { status, foundUser } = await userServices.getById(id);
-    res.status(status).json(foundUser);
+    const foundUser = await userServices.getById(id);
+    res.status(200).json(foundUser);
   }
 };
 
 const createNewUser = async (req, res) => {
-  const { status, createdUser } = await userServices.createNewUser(req.body);
-  return res.status(status).json(createdUser);
+  const createdUser = await userServices.createNewUser(req.body);
+  return res.status(201).json(createdUser);
 };
 
 const login = async (req, res) => {
-  const { status, token } = await userServices.login(req.body);
-  return res.status(status).json(token);
+  const token = await userServices.login(req.body);
+  return res.status(200).json(token);
 };
 
 module.exports = {

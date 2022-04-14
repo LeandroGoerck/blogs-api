@@ -8,4 +8,7 @@ router.route('/')
   .get(rescue(PostController.getAll))
   .post(rescue(PostController.createNewPost));
 
+router.route('/:id')
+  .get(rescue(PostController.getById));
+
 module.exports = router;

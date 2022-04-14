@@ -4,19 +4,13 @@ const auth = require('./auth');
 
 const getAllUsers = async () => {
   const userData = await User.findAll();
-  return {
-    status: 200,
-    userData,
-  };
+  return userData;
 };
 
 const getById = async (id) => {
   const foundUser = await User.findByPk(id);
   if (!foundUser) throw ERR.USER_DOES_NOT_EXIST;
-  return {
-    status: 200,
-    foundUser,
-  };
+  return foundUser;
 };
 
 const checkEmail = (email) => {
@@ -43,10 +37,7 @@ const createNewUser = async (userData) => {
   const emailFound = await User.findOne({ where: { email } });
   if (emailFound) throw ERR.USER_ALREADY_REGISTERED;
   const createdUser = await User.create(userData);
-  return {
-    status: 201,
-    createdUser,
-  };
+  return createdUser;
 };
 
 const login = async (data) => {
@@ -55,10 +46,7 @@ const login = async (data) => {
   const userEmailFound = await User.findOne({ where: { email } });
   if (!userEmailFound) throw ERR.INVALID_FIELDS;
   const token = auth.generateToken();
-  return {
-    status: 200,
-    token,
-  };
+  return token;
 };
 
 module.exports = {

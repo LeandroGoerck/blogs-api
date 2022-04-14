@@ -22,17 +22,29 @@ const createNewPost = async (data) => {
 };
 
 const getAll = async () => {
-  console.log('its passing here');
-  const categoriesData = await BlogPost.findAll({
+  const postsData = await BlogPost.findAll({
     include: [
       { model: User, as: 'user' },
       { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   }); 
-  return categoriesData;
+  return postsData;
+};
+
+const getById = async (id) => {
+  const postData = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  }); 
+  if (postData) return postData;
+  throw ERR.POST_DOES_NOT_EXIST;
 };
 
 module.exports = {
   createNewPost,
   getAll,
+  getById,
 };

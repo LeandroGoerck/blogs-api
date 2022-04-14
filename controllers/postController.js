@@ -19,7 +19,18 @@ const getAll = async (req, res) => {
   }
 };
 
+const getById = async (req, res) => {
+  const { authorization } = req.headers;
+  const isLogged = await authServices.checkJWT(authorization);
+  if (isLogged) {
+    const { id } = req.params;
+    const postData = await postServices.getById(id);
+    res.status(200).json(postData);
+  }
+};
+
 module.exports = {
   createNewPost,
   getAll,
+  getById,
 };
