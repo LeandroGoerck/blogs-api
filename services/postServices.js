@@ -77,10 +77,16 @@ const updatePost = async (id, title, content, categoryIds) => {
     return postData;
 };
 
+const deletePost = async (id) => {
+  console.log('it will destroy post number :', id);
+  await BlogPost.destroy({ where: { id } });
+};
+
 module.exports = {
   createNewPost,
   getAll,
   getById,
   updatePost,
   checkIfUserOwnsThePost,
+  deletePost,
 };

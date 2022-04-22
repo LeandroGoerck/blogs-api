@@ -43,9 +43,23 @@ const updatePost = async (req, res) => {
   }
 };
 
+const deletePost = async (req, res) => {
+  const { authorization } = req.headers;
+  const userIdFound = await authServices.checkJWT(authorization);
+  if (userIdFound) {
+    const { id: postId } = req.params;
+    const userOwnsThePost = await postServices.checkIfUserOwnsThePost(userIdFound, postId);
+    if (userOwnsThePost) {
+      const postData = await postServices.deletePost(postId);
+      res.status(204).json(postData);
+    }
+  }
+};
+
 module.exports = {
   createNewPost,
   getAll,
   getById,
   updatePost,
+  deletePost,
 };
