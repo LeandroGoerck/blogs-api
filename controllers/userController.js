@@ -3,7 +3,6 @@ const authServices = require('../services/auth');
 
 const getAllUsers = async (req, res) => {
   const { authorization } = req.headers;
-  console.log('\nauthorization: ', authorization);
   const isLogged = await authServices.checkJWT(authorization);
   if (isLogged) {
     const userData = await userServices.getAllUsers();
@@ -13,7 +12,6 @@ const getAllUsers = async (req, res) => {
 
 const getById = async (req, res) => {
   const { authorization } = req.headers;
-  console.log('\nauthorization: ', authorization);
   const isLogged = await authServices.checkJWT(authorization);
   if (isLogged) {
     const { id } = req.params;
@@ -34,9 +32,19 @@ const login = async (req, res) => {
   return res.status(200).json(token);
 };
 
+const deleteCurrentUser = async (req, res) => {
+  const { authorization } = req.headers;
+  const loggedUserId = await authServices.checkJWT(authorization);
+  if (loggedUserId) {
+    await userServices.deleteCurrentUser(loggedUserId);
+    return res.status(204).end();
+  }
+};
+
 module.exports = {
   getAllUsers,
   getById,
   createNewUser,
   login,
+  deleteCurrentUser,
 };

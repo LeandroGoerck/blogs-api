@@ -49,9 +49,14 @@ const login = async (data) => {
   return token;
 };
 
+const deleteCurrentUser = async (id) => {
+  await User.destroy({ where: { id } });
+};
+
 module.exports = {
   getAllUsers,
   getById,
   createNewUser,
   login,
+  deleteCurrentUser,
 };

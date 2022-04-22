@@ -8,7 +8,10 @@ router.route('/')
   .get(rescue(UserController.getAllUsers))
   .post(rescue(UserController.createNewUser));
 
-  router.route('/:id')
+router.route('/:id')
   .get(rescue(UserController.getById));
+
+router.route('/me')
+  .delete(rescue(UserController.deleteCurrentUser));
 
 module.exports = router;
