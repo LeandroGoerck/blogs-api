@@ -43,8 +43,44 @@ const getById = async (id) => {
   throw ERR.POST_DOES_NOT_EXIST;
 };
 
+/// verify if userId is equal in the BlogPosts
+const checkIfUserOwnsThePost = async (userId, postId) => {
+  const post = await getById(postId);
+  const postInfo = {
+    id: Object.values(post)[0].id,
+    userId: Object.values(post)[0].userId,
+  };
+  if (userId !== postInfo.userId) throw ERR.UNAUTHORIZED_USER;
+  return true;
+};
+
+const updatePost = async (id, title, content, categoryIds) => {
+  if (categoryIds) throw ERR.CATEGORIES_CANNOT_BE_EDITED;
+  if (!title) throw ERR.TITLE_IS_REQUIRED;
+  if (!content) throw ERR.CONTENT_IS_REQUIRED;
+
+  await BlogPost.update(
+    { title, content, updated: Date.now() },
+    { where: { id } },
+  );
+
+  const postData = await BlogPost.findOne({
+      where: { id },
+      include: [{
+                  model: Category,
+                  as: 'categories', 
+                  through: { attributes: { exclude: ['postId', 'categoryId'] } },
+                }],
+      attributes: { exclude: ['updated', 'published'] },
+    });
+
+    return postData;
+};
+
 module.exports = {
   createNewPost,
   getAll,
   getById,
+  updatePost,
+  checkIfUserOwnsThePost,
 };

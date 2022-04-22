@@ -88,6 +88,16 @@ const POST_DOES_NOT_EXIST = {
   status: 404,
 };
 
+const CATEGORIES_CANNOT_BE_EDITED = {
+  message: 'Categories cannot be edited',
+  status: 400,
+};
+
+const UNAUTHORIZED_USER = {
+  message: 'Unauthorized user',
+  status: 401,
+};
+
 module.exports = {
   DISPLAY_NAME_LENGTH_MUST_BE_AT_LEAST_8,
   EMAIL_MUST_BE_VALID,
@@ -107,4 +117,6 @@ module.exports = {
   CATEGORY_IDS_IS_REQUIRED,
   CATEGORY_IDS_NOT_FOUND,
   POST_DOES_NOT_EXIST,
+  CATEGORIES_CANNOT_BE_EDITED,
+  UNAUTHORIZED_USER,
 };

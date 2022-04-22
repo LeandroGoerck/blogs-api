@@ -45,7 +45,7 @@ const login = async (data) => {
   const { email } = data;
   const userEmailFound = await User.findOne({ where: { email } });
   if (!userEmailFound) throw ERR.INVALID_FIELDS;
-  const token = auth.generateToken();
+  const token = auth.generateToken(data.email, data.password);
   return token;
 };
 

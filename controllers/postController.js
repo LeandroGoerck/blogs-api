@@ -29,8 +29,23 @@ const getById = async (req, res) => {
   }
 };
 
+const updatePost = async (req, res) => {
+  const { authorization } = req.headers;
+  const userIdFound = await authServices.checkJWT(authorization);
+  if (userIdFound) {
+    const { id: postId } = req.params;
+    const { title, content, categoryIds } = req.body;
+    const userOwnsThePost = await postServices.checkIfUserOwnsThePost(userIdFound, postId);
+    if (userOwnsThePost) {
+      const postData = await postServices.updatePost(postId, title, content, categoryIds);
+      res.status(200).json(postData);
+    }
+  }
+};
+
 module.exports = {
   createNewPost,
   getAll,
   getById,
+  updatePost,
 };

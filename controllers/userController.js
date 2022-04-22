@@ -29,7 +29,8 @@ const createNewUser = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const token = await userServices.login(req.body);
+  const { email, password } = req.body;
+  const token = await userServices.login({ email, password });
   return res.status(200).json(token);
 };
 

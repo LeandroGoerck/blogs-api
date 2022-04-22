@@ -9,6 +9,7 @@ router.route('/')
   .post(rescue(PostController.createNewPost));
 
 router.route('/:id')
-  .get(rescue(PostController.getById));
+.get(rescue(PostController.getById))
+.put(rescue(PostController.updatePost));
 
 module.exports = router;
