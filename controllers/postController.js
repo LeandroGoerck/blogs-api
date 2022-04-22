@@ -56,10 +56,21 @@ const deletePost = async (req, res) => {
   }
 };
 
+const search = async (req, res) => {
+  const { authorization } = req.headers;
+  const userIdFound = await authServices.checkJWT(authorization);
+  if (userIdFound) {
+    const { q: searchTerm } = req.query;
+    const postsData = await postServices.search(searchTerm);
+    res.status(200).json(postsData);
+  }
+};
+
 module.exports = {
   createNewPost,
   getAll,
   getById,
   updatePost,
   deletePost,
+  search,
 };

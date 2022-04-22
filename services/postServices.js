@@ -82,6 +82,36 @@ const deletePost = async (id) => {
   await BlogPost.destroy({ where: { id } });
 };
 
+const searchByTitle = async (title) => (
+  BlogPost.findAll({
+    where: { title },
+    include: [
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  })
+);
+
+const searchByContent = async (content) => (
+  BlogPost.findAll({
+    where: { content },
+    include: [
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  })
+);
+
+const search = async (searchTerm) => {
+  console.log('\nsearchTerm ==', searchTerm, '\n');
+  if (searchTerm !== '') {
+    let postsData = await searchByTitle(searchTerm);
+    if (postsData.length === 0) postsData = await searchByContent(searchTerm);
+    return postsData;
+  }
+  return getAll();
+};
+
 module.exports = {
   createNewPost,
   getAll,
@@ -89,4 +119,5 @@ module.exports = {
   updatePost,
   checkIfUserOwnsThePost,
   deletePost,
+  search,
 };
