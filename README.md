@@ -332,6 +332,6 @@ This project uses Sequelize and ExpressJS to build an API that CRUD blog posts.
 
 ##
 
-Original README owner: Trybe
-Translated from portuguese using Google translator
-
+- Original README owner: Trybe
+- Translated from portuguese using Google translator
+- Mai 2022
